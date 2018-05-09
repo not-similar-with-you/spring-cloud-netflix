@@ -48,6 +48,12 @@ public class RibbonLoadBalancerClient implements LoadBalancerClient {
 		this.clientFactory = clientFactory;
 	}
 
+	/**
+	 * InterceptingClientHttpRequest -> ServiceRequestWrapper -> RibbonLoadBalancerClient
+	 * @param instance
+	 * @param original
+	 * @return
+	 */
 	@Override
 	public URI reconstructURI(ServiceInstance instance, URI original) {
 		Assert.notNull(instance, "instance can not be null");
@@ -62,6 +68,7 @@ public class RibbonLoadBalancerClient implements LoadBalancerClient {
 			server = ribbonServer.getServer();
 			uri = updateToSecureConnectionIfNeeded(original, ribbonServer);
 		} else {
+			//使用ServiceInstance的host和port信息来构建了一个Server对象
 			server = new Server(instance.getScheme(), instance.getHost(), instance.getPort());
 			IClientConfig clientConfig = clientFactory.getClientConfig(serviceId);
 			ServerIntrospector serverIntrospector = serverIntrospector(serviceId);
@@ -83,6 +90,7 @@ public class RibbonLoadBalancerClient implements LoadBalancerClient {
 
 	@Override
 	public <T> T execute(String serviceId, LoadBalancerRequest<T> request) throws IOException {
+		// DynamicServerListLoadBalancer
 		ILoadBalancer loadBalancer = getLoadBalancer(serviceId);
 		Server server = getServer(loadBalancer);
 		if (server == null) {

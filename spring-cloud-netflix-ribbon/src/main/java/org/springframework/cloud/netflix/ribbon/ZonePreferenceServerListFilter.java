@@ -46,18 +46,24 @@ public class ZonePreferenceServerListFilter extends ZoneAffinityServerListFilter
 
 	@Override
 	public List<Server> getFilteredListOfServers(List<Server> servers) {
+		//获得“区域感知”的服务实例列表
 		List<Server> output = super.getFilteredListOfServers(servers);
 		if (this.zone != null && output.size() == servers.size()) {
 			List<Server> local = new ArrayList<>();
 			for (Server server : output) {
+				// 比较
 				if (this.zone.equalsIgnoreCase(server.getZone())) {
+					// 增加
 					local.add(server);
 				}
 			}
+			// 是否为 空
 			if (!local.isEmpty()) {
+				// 不为空 直接返回
 				return local;
 			}
 		}
+		// 返回父类结果
 		return output;
 	}
 

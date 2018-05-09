@@ -39,6 +39,7 @@ public class DomainExtractingServerList implements ServerList<DiscoveryEnabledSe
 
 	public DomainExtractingServerList(ServerList<DiscoveryEnabledServer> list,
 			IClientConfig clientConfig, boolean approximateZoneFromHostname) {
+		//DiscoveryEnabledNIWSServerList
 		this.list = list;
 		this.ribbon = RibbonProperties.from(clientConfig);
 		this.approximateZoneFromHostname = approximateZoneFromHostname;
@@ -58,6 +59,11 @@ public class DomainExtractingServerList implements ServerList<DiscoveryEnabledSe
 		return servers;
 	}
 
+	/**
+	 * 转换成内部定义的DiscoveryEnabledServer的子类对象DomainExtractingServer
+	 * @param servers
+	 * @return
+	 */
 	private List<DiscoveryEnabledServer> setZones(List<DiscoveryEnabledServer> servers) {
 		List<DiscoveryEnabledServer> result = new ArrayList<>();
 		boolean isSecure = this.ribbon.isSecure(true);

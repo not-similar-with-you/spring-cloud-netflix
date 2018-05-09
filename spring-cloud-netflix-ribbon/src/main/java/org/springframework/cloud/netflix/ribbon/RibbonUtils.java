@@ -133,8 +133,9 @@ public class RibbonUtils {
 	 */
 	public static URI updateToSecureConnectionIfNeeded(URI uri, IClientConfig config,
 													   ServerIntrospector serverIntrospector, Server server) {
+		// http  or https
 		String scheme = uri.getScheme();
-
+		// 设置默认值
 		if (StringUtils.isEmpty(scheme)) {
 			scheme = "http";
 		}
