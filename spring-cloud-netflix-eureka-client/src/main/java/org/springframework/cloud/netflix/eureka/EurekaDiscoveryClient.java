@@ -43,7 +43,9 @@ public class EurekaDiscoveryClient implements DiscoveryClient {
 	public static final String DESCRIPTION = "Spring Cloud Eureka Discovery Client";
 
 	private final EurekaInstanceConfig config;
-
+	/**
+	 * 依赖了Eureka的com.netflix.discovery.EurekaClient接口
+	 */
 	private final EurekaClient eurekaClient;
 
 	public EurekaDiscoveryClient(EurekaInstanceConfig config, EurekaClient eurekaClient) {

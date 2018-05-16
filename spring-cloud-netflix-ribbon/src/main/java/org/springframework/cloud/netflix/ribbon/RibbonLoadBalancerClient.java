@@ -34,7 +34,7 @@ import org.springframework.util.ReflectionUtils;
 
 import static org.springframework.cloud.netflix.ribbon.RibbonUtils.updateToSecureConnectionIfNeeded;
 
-/**
+/** 从EurekaClient获取服务信息，并根据IRule去路由，并且根据IPing去判断服务的可用性
  * @author Spencer Gibb
  * @author Dave Syer
  * @author Ryan Baxter
